@@ -102,4 +102,4 @@ if you found a bug in OpenSectors write to me on discord **fizuxd**
   - Make an easy-to-use **API** for developers
   - Support for newer MC versions
 
-# Thanks for Support <3
+# Thanks for Support ❤️
