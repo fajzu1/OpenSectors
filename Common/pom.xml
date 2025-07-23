@@ -69,7 +69,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.58.Final</version>
+            <version>4.2.3.Final</version>
         </dependency>
         <dependency>
             <groupId>de.ruedigermoeller</groupId>
