@@ -1,26 +1,31 @@
-# OpenSectors [1.8]
+<h1 align="center">🌍 OpenSectors [1.8]</h1>
+<p align="center">A powerful Minecraft plugin that splits your world into multiple servers and syncs player data seamlessly.</p>
 
-This is a Minecraft server plugin that divides the world into individual servers and synchronizes your data with them.
+---
 
-# Features
+## ✨ Features
 
-  - Going through sector border and teleporting between sectors
-  - Player data synchronization between sectors
-  - Synchronization of sector information
+- 🚪 Smooth teleportation between sectors on border crossing  
+- 🔄 Real-time player data synchronization  
+- 🧭 Shared and synced sector information  
 
-# Requirements
+---
 
-  - One velocity server
-  - min. 2 spigot servers
-  - One redis distribution
+## 🧰 Requirements
 
-# Configuration 
+- 🌐 1x [Velocity](https://velocitypowered.com/) proxy server  
+- 🧱 Minimum 2x Spigot servers  
+- ⚡ 1x Redis instance (data distribution & sync)
 
-The configuration of the sectors themselves is simple and clear. Just set the location of each sector and provide the redis distribution data in config
+---
 
-**Sectors configuration**
+## ⚙️ Configuration
 
-```JSON
+Setting up sectors is simple and straightforward. Define the area for each sector and configure your Redis instance in the config files.
+
+### 🗺️ Sectors Configuration
+
+```json
 {
   "sectorMap": {
     "s1": {
@@ -43,63 +48,68 @@ The configuration of the sectors themselves is simple and clear. Just set the lo
 }
 ```
 
-**Database Configuration**
+### 🧠 Redis Configuration
 
-```JSON
+```json
 {
   "redisHost": "localhost",
   "redisPassword": "root",
   "redisPort": 6379
 }
-
 ```
 
-**Spigot Configuration**
+### 📍 Spigot Configuration
 
-```JSON
+```json
 {
   "currentSector": "s1"
 }
-
 ```
 
-**Messages Configuration**
+### 💬 Messages Configuration
 
-```JSON
+```json
 {
-  "cannotPlaceBlockNearSectorMessage": "&CNie możesz stawiać bloków przy granicy sektora!",
+  "cannotPlaceBlockNearSectorMessage": "&cNie możesz stawiać bloków przy granicy sektora!",
   "cannotBreakBlockNearSectorMessage": "&cNie możesz niszczyć bloków przy granicy sektora!",
   "actionbarBorderMessage": "&7Jesteś blisko sektora &2{DISTANCE}&7m",
-  "sectorIsOfflineMessage": "&cSektor z którym się chcesz aktualnie połączyć jest aktualnie wyłączony!",
-  "noSectorsAvailableMessage": "&cBrak dostepnych sektorów",
-  "playerDataNotFoundMessage": "&cWystąpił problem podczas ładowania danych",
-  "playerDataLoadedMessage": "&aPomyslnie zaladowano twoje dane",
-  "playerAlreadyConnectedMessage": "&cJesteś aktualnie połączony z tym kanałem",
-  "spawnSectorNotFoundMessage": "&cNie odnaleziono dostepnego sektora spawna",
+  "sectorIsOfflineMessage": "&cSektor, z którym chcesz się połączyć, jest aktualnie wyłączony!",
+  "noSectorsAvailableMessage": "&cBrak dostępnych sektorów!",
+  "playerDataNotFoundMessage": "&cWystąpił problem podczas ładowania danych.",
+  "playerDataLoadedMessage": "&aPomyślnie załadowano twoje dane.",
+  "playerAlreadyConnectedMessage": "&cJesteś już połączony z tym kanałem!",
+  "spawnSectorNotFoundMessage": "&cNie odnaleziono dostępnego sektora spawna!",
   "scoreboardTitle": "&a&lOpenSectors 2.0",
   "scoreboardLines": [
     "",
-    "&7Polaczono z &a{SECTOR}",
-    "&7Uzyj: &a/ch &7aby ",
-    "&7zmienic kanal",
+    "&7Połączono z &a{SECTOR}",
+    "&7Użyj: &a/ch &7aby ",
+    "&7zmienić kanał",
     "",
     "&7Online: &a{ONLINE}",
     "&7TPS: &a{TPS}",
     ""
   ],
   "connectedInfoTitle": "&a&lOpenSectors 2.0",
-  "connectedInfoSubTitle": "&7Pomyslnie &a&npolaczono &7z sektorem &a&n{SECTOR}"
+  "connectedInfoSubTitle": "&7Pomyślnie &a&npołączono &7z sektorem &a&n{SECTOR}"
 }
-
 ```
 
-# Bug
+---
 
-if you found a bug in OpenSectors write to me on discord **fizuxd**
+## 🐛 Found a Bug?
 
-# TODO
+Spotted an issue? Report it via Discord: **fizuxd** 💬
 
-  - Make an easy-to-use **API** for developers
-  - Support for newer MC versions
+---
 
-# Thanks for Support ❤️
+## 📌 TODO
+
+- 🧩 Create an easy-to-use **API** for developers  
+- ⛏️ Add support for **newer Minecraft versions**
+
+---
+
+## 💖 Thanks for Your Support!
+
+If you enjoy using OpenSectors, leave a ⭐ on the GitHub repo and share it with your friends!
