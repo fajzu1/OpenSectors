@@ -1,9 +1,8 @@
 <h1 align="center">🌍 OpenSectors [1.8]</h1>
 <p align="center">A powerful Minecraft plugin that splits your world into multiple servers and syncs player data seamlessly.</p>
 
-<div align="center">
-  <img src="/assets/banner.png" alt="Banner" />
-</div>
+<img src="/assets/banner.png" alt="Banner" style="display: block; margin: 0 auto; max-width: 100%; height: auto;" />
+
 ---
 
 ## ✨ Features
