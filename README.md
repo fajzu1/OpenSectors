@@ -2,7 +2,7 @@
 <p align="center">A powerful Minecraft plugin that splits your world into multiple servers and syncs player data seamlessly.</p>
 
 <p align="center">
-  <img src="assets/banner.png" alt="banner" width="1679"/>
+![Banner](/assets/readme-banner.png)
 </p>
 ---
 
