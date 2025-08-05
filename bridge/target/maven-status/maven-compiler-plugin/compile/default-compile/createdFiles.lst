@@ -1,5 +1,0 @@
-net\lightcode\bridge\listener\PacketPlayerConnectSectorListener.class
-net\lightcode\bridge\BridgeLogger.class
-net\lightcode\bridge\BridgePlugin.class
-velocity-plugin.json
-net\lightcode\bridge\listener\PacketSectorConfigurationRequestListener.class
