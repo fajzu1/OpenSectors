@@ -1,0 +1,6 @@
+net\lightcode\v1_19R3\server\v1_19R3MinecraftServer.class
+net\lightcode\v1_19R3\v1_19R3NmsService.class
+net\lightcode\v1_19R3\data\v1_19R3Data.class
+net\lightcode\v1_19R3\converter\v1_19R3NbtConverter.class
+net\lightcode\v1_19R3\actionbar\v1_19R3Actionbar.class
+net\lightcode\v1_19R3\border\v1_19R3Border.class
