@@ -115,3 +115,7 @@ Spotted an issue? Report it via Discord: **fizuxd** 💬
 - 📚 Create a developer API wiki
 
 ---
+
+## 💖 Thanks for Your Support!
+
+If you enjoy using OpenSectors, leave a ⭐ on the GitHub repo and share it with your friends!
