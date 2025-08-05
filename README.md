@@ -19,7 +19,7 @@
 ## 🧰 Requirements
 
 - 🌐 1x [Velocity](https://velocitypowered.com/) proxy server  
-- 🧱 Minimum 2x Spigot servers  
+- 🧱 Minimum 2x Spigot/Paper servers  
 - ⚡ 1x Redis instance (data distribution & sync)
 
 ---
