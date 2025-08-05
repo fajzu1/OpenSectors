@@ -12,7 +12,7 @@
 
 ## ⏯ Video
 
-![](assets/banner.png)<br/>
+![](assets/video-example.gif)<br/>
 
 ---
 
