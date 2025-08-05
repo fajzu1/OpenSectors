@@ -112,7 +112,6 @@ Spotted an issue? Report it via Discord: **fizuxd** 💬
 
 ## 📌 TODO
 
-- 🧩 Create an easy-to-use **API** for developers  
-- ⛏️ Add support for **newer Minecraft versions**
+- 📚 Create a developer API wiki
 
 ---
