@@ -12,7 +12,7 @@
 
 ## ⏯ Video
 
-![](https://i.imgur.com/d3fYCjw.mp4)<br/>
+![](assets/banner.png)<br/>
 
 ---
 
