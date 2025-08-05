@@ -22,15 +22,9 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>io.netty</pattern>
-                            <shadedPattern>net.lightcode.libraries.io.netty</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
+                <version>3.6.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -39,7 +33,6 @@
                         <phase>package</phase>
                     </execution>
                 </executions>
-                <groupId>org.apache.maven.plugins</groupId>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
