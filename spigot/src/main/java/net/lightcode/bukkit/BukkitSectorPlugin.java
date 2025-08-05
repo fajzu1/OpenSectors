@@ -1,7 +1,6 @@
 package net.lightcode.bukkit;
 
 import net.lightcode.NetworkService;
-import net.lightcode.bukkit.integration.BukkitSectorIntegration;
 import net.lightcode.bukkit.listener.redis.PacketPlayerSendMessageListener;
 import net.lightcode.bukkit.listener.redis.PacketSectorConfigurationResponseListener;
 import net.lightcode.bukkit.listener.redis.PacketSectorInformationUpdateListener;
@@ -78,8 +77,6 @@ public final class BukkitSectorPlugin extends JavaPlugin {
                 "╚██████╔╝██║     ███████╗██║ ╚████║███████║███████╗╚██████╗   ██║   ╚██████╔╝██║  ██║███████║\n" +
                 " ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝\n";
         this.logger.log(text);
-
-        BukkitSectorIntegration.create(this);
 
         this.nmsService = NmsHelper.findNmsService(this);
         this.logger.log("NMS service found: " + (this.nmsService != null));
