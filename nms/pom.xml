@@ -16,15 +16,6 @@
 
     <modules>
         <module>api</module>
-        <module>v1_8R3</module>
-        <module>v1_9R2</module>
-        <module>v1_10R1</module>
-        <module>v1_11R1</module>
-        <module>v1_12R1</module>
-        <module>v1_13R1</module>
-        <module>v1_14R1</module>
-        <module>v1_15R1</module>
-        <module>v1_16R3</module>
         <module>v1_17R1</module>
         <module>v1_18R2</module>
         <module>v1_19R3</module>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/bridge/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/bridge/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_10R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_10R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_11R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_11R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_12R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_12R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_13R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_13R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_14R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_14R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_15R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_15R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_16R3/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_16R3/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_17R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_17R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_18R2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_18R2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_19R3/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_19R3/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_20R5/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_20R5/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_21R1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_21R1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_8R3/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_8R3/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_9R2/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/nms/v1_9R2/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shared/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/shared/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spigot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spigot/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

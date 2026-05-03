@@ -1,56 +1,68 @@
 package io.github.fajzu.sectors.bukkit.transfer;
 
-import io.github.fajzu.sectors.bukkit.BukkitSectorPlugin;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import io.github.fajzu.sectors.bukkit.profile.ProfileService;
+import io.github.fajzu.shared.network.NetworkService;
+import io.github.fajzu.shared.network.packet.internal.PlayerTransferRequestPacket;
+import io.github.fajzu.shared.sector.Sector;
+import io.github.fajzu.shared.sector.SectorService;
+import io.github.fajzu.shared.sector.SectorType;
+import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import io.github.fajzu.sectors.bukkit.event.PlayerSectorChangeEvent;
-import io.github.fajzu.sectors.bukkit.user.User;
-import io.github.fajzu.common.network.packet.impl.PlayerTransferRequestPacket;
-import io.github.fajzu.common.sector.Sector;
-import io.github.fajzu.common.sector.type.SectorType;
+import io.github.fajzu.sectors.bukkit.profile.Profile;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
+@Singleton
 public class PlayerTransferService {
 
-    private final BukkitSectorPlugin plugin;
+    private final Plugin plugin;
+    private final SectorService sectorService;
+    private final ProfileService profileService;
+    private final NetworkService networkService;
 
-    public PlayerTransferService(BukkitSectorPlugin plugin) {
+    @Inject
+    public PlayerTransferService(final @NotNull Plugin plugin,
+                                 final @NotNull SectorService sectorService,
+                                 final @NotNull ProfileService profileService,
+                                 final @NotNull NetworkService networkService) {
         this.plugin = plugin;
+        this.sectorService = sectorService;
+        this.profileService = profileService;
+        this.networkService = networkService;
     }
 
     public void connect(final Player player,
-                        final User user,
+                        final Profile profile,
                         final Sector sector,
-                        boolean transferCheck) {
+                        final boolean transferCheck) {
         if (sector.sectorType() == SectorType.SPAWN
-                && this.plugin.sectorService().currentSector().sectorType() == SectorType.SPAWN
-                && !transferCheck) return;
+            && this.sectorService.currentSector().sectorType() == SectorType.SPAWN
+            && !transferCheck) {
+            return;
+        }
 
-        this.plugin.getLogger().info("Starting connection process for player " + player.getName() + " to sector " + sector.id());
+        final PlayerSectorChangeEvent sectorChangeEvent = new PlayerSectorChangeEvent(player, this.sectorService.currentSector(), sector);
+        this.plugin.getServer().getPluginManager().callEvent(sectorChangeEvent);
 
-        this.plugin.getServer().getScheduler().runTask(this.plugin, () -> {
-            PlayerSectorChangeEvent sectorChangeEvent = new PlayerSectorChangeEvent(player, this.plugin.sectorService().currentSector(), sector);
-            this.plugin.getServer().getPluginManager().callEvent(sectorChangeEvent);
+        if (sectorChangeEvent.isCancelled()) {
+            return;
+        }
 
-            if (sectorChangeEvent.isCancelled()) {
-                this.plugin.getLogger().info("Connection cancelled by event for player " + player.getName());
-                return;
-            }
+        if (player.isInsideVehicle()) {
+            player.leaveVehicle();
+        }
 
-            if (player.isInsideVehicle()) {
-                player.leaveVehicle();
-            }
+        profile.saveData(player, this.plugin);
 
-            this.plugin.getLogger().info("Saving user data for player " + player.getName());
+        CompletableFuture.runAsync(() -> this.profileService.profileRepository().update(profile)).thenAccept(unused -> {
+            this.networkService.publish(sector.id(), new PlayerTransferRequestPacket(player.getName()));
 
-            user.saveData(player, this.plugin);
-
-            CompletableFuture.runAsync(() -> this.plugin.userService().userRepository().update(user)).thenAccept(unused -> {
-                this.plugin.networkService().publish(sector.id(), new PlayerTransferRequestPacket(player.getName()));
-
-                this.plugin.getLogger().info("Connection process finished for player " + player.getName());
-            });
+            this.plugin.getLogger().info("Connection process finished for player " + player.getName());
         });
     }
 }
-

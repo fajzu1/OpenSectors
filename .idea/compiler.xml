@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="shared" />
+        <module name="v1_19R3" />
+        <module name="v1_18R2" />
+        <module name="v1_17R1" />
+        <module name="v1_20R5" />
+        <module name="v1_21R1" />
+        <module name="spigot" />
+        <module name="bridge" />
+        <module name="api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="v1_10R1" target="11" />
+      <module name="v1_11R1" target="11" />
+      <module name="v1_12R1" target="11" />
+      <module name="v1_13R1" target="11" />
+      <module name="v1_14R1" target="11" />
+      <module name="v1_15R1" target="11" />
+      <module name="v1_16R3" target="11" />
+      <module name="v1_8R3" target="11" />
+      <module name="v1_9R2" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

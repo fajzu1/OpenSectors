@@ -1,13 +1,13 @@
 package io.github.fajzu.sectors.bukkit.helper;
 
 import io.github.fajzu.nms.api.NmsService;
-import io.github.fajzu.sectors.bukkit.BukkitSectorPlugin;
+import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 public class NmsHelper {
 
-    public static NmsService findNmsService(BukkitSectorPlugin plugin) {
+    public static NmsService findNmsService(final Plugin plugin) {
         final String nmsVersion = findBukkitVersion(plugin);
         final String className = String.format("io.github.fajzu.nms.%s.%sNmsService", nmsVersion, nmsVersion);
 
@@ -28,42 +28,42 @@ public class NmsHelper {
             throw new IllegalStateException("Unsupported server engine for " + nmsVersion);
         }
 
-
         try {
             return (NmsService) Class.forName(className).newInstance();
-        } catch (Exception exception) {
+        } catch (final Exception exception) {
             throw new RuntimeException("Not found nms for version " + nmsVersion);
         }
     }
 
-    protected static String findBukkitVersion(Plugin plugin) {
-        String packageName = plugin.getServer().getClass().getPackage().getName();
-        String[] parts = packageName.split("\\.");
+    protected static String findBukkitVersion(final Plugin plugin) {
+        final String packageName = plugin.getServer().getClass().getPackage().getName();
+        final String[] parts = packageName.split("\\.");
 
         if (parts.length > 3) {
             return parts[3];
         }
 
-        String version = plugin.getServer().getBukkitVersion();
-        String clean = version.split("-")[0];
-        String[] nums = clean.split("\\.");
+        final String version = plugin.getServer().getBukkitVersion();
+        final String clean = version.split("-")[0];
+        final String[] nums = clean.split("\\.");
 
         return "v" + nums[0] + "_" + nums[1] + "R1";
     }
 
-    private static boolean isAtLeast117(String nmsVersion) {
+    private static boolean isAtLeast117(final String nmsVersion) {
         try {
-            String[] parts = nmsVersion.substring(1).split("_");
-            int major = Integer.parseInt(parts[0]);
-            int minor = Integer.parseInt(parts[1]);
+            final String[] parts = nmsVersion.substring(1).split("_");
+            final int major = Integer.parseInt(parts[0]);
+            final int minor = Integer.parseInt(parts[1]);
             return (major > 1) || (major == 1 && minor >= 17);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return false;
         }
     }
 
     private static boolean isPaperLike() {
-        String name = Bukkit.getServer().getName();
+        final String name = Bukkit.getServer().getName();
+
         if (name.equalsIgnoreCase("Paper") || name.equalsIgnoreCase("Purpur") || name.equalsIgnoreCase("Pufferfish")) {
             return true;
         }
@@ -71,14 +71,15 @@ public class NmsHelper {
         try {
             Class.forName("com.destroystokyo.paper.PaperConfig");
             return true;
-        } catch (ClassNotFoundException ignored) {}
+        } catch (final ClassNotFoundException ignored) {
+        }
 
         try {
             Class.forName("io.papermc.paper.configuration.Configuration");
             return true;
-        } catch (ClassNotFoundException ignored) {}
+        } catch (final ClassNotFoundException ignored) {
+        }
 
         return false;
     }
-
 }

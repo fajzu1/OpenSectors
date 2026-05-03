@@ -12,18 +12,20 @@
     <name>OpenSectors</name>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spigot.version>1.8.8-R0.1-SNAPSHOT</spigot.version>
+        <paper.version>1.17.1-R0.1-SNAPSHOT</paper.version>
         <authlib.version>1.5.21</authlib.version>
         <velocity.version>3.1.1</velocity.version>
+        <minimessage.version>5.0.0</minimessage.version>
 
         <lettuce.version>7.1.0.RELEASE</lettuce.version>
         <netty.version>4.2.7.Final</netty.version>
 
         <msgpack.version>0.9.10</msgpack.version>
         <configurate.version>4.2.0</configurate.version>
+        <guice.version>7.0.0</guice.version>
         <gson.version>2.13.2</gson.version>
         <jackson.version>2.20.1</jackson.version>
 
@@ -32,7 +34,7 @@
 
     <modules>
         <module>nms</module>
-        <module>common</module>
+        <module>shared</module>
         <module>spigot</module>
         <module>bridge</module>
     </modules>
@@ -50,10 +52,6 @@
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
@@ -67,15 +65,15 @@
         <dependencies>
             <dependency>
                 <groupId>io.github.fajzu</groupId>
-                <artifactId>common</artifactId>
+                <artifactId>shared</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <scope>compile</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.spigotmc</groupId>
-                <artifactId>spigot-api</artifactId>
-                <version>${spigot.version}</version>
+                <groupId>io.papermc.paper</groupId>
+                <artifactId>paper-api</artifactId>
+                <version>${paper.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -88,6 +86,13 @@
                 <groupId>com.velocitypowered</groupId>
                 <artifactId>velocity-api</artifactId>
                 <version>${velocity.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.kyori</groupId>
+                <artifactId>adventure-text-minimessage</artifactId>
+                <version>${minimessage.version}</version>
+                <scope>compile</scope>
             </dependency>
 
             <dependency>
@@ -125,6 +130,12 @@
                 <version>2.12.1</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+                <scope>compile</scope>
+            </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
