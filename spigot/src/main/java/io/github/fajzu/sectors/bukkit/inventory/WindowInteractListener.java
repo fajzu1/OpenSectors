@@ -19,6 +19,10 @@ public class WindowInteractListener implements Listener {
         }
 
         final WindowHolder holder = (WindowHolder) event.getInventory().getHolder();
+        if(holder == null) {
+            return;
+        }
+
         event.setCancelled(true);
 
         holder.handleClick(event);
@@ -34,8 +38,6 @@ public class WindowInteractListener implements Listener {
     }
 
     private boolean isGuiWindow(final @NotNull Inventory inventory) {
-        return inventory != null
-                && inventory.getType() == InventoryType.CHEST
-                && inventory.getHolder() instanceof WindowHolder;
+        return inventory.getType() == InventoryType.CHEST && inventory.getHolder() instanceof WindowHolder;
     }
 }

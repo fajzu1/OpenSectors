@@ -19,13 +19,13 @@ public class Window {
                   final int rows) {
         this.holder = new WindowHolder();
         this.inventory = Bukkit.createInventory(this.holder, (rows > 6) ? 54 : (rows * 9), ChatHelper.colored(name));
-        this.holder.setInventory(this.inventory);
+        this.holder.inventory(this.inventory);
     }
 
     public void setItem(final int slot,
                         final @NotNull ItemStack item,
                         final @NotNull Consumer<InventoryClickEvent> consumer) {
-        this.holder.setActionOnSlot(slot, consumer);
+        this.holder.actionOnSlot(slot, consumer);
         this.inventory.setItem(slot, item);
     }
 
