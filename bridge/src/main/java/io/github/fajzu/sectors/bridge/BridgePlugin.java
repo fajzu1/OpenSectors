@@ -15,6 +15,7 @@ import io.github.fajzu.sectors.bridge.listener.PlayerServerConnectListener;
 import io.github.fajzu.sectors.bridge.listener.redis.PacketPlayerConnectSectorListener;
 import io.github.fajzu.sectors.bridge.listener.redis.PacketSectorConfigurationRequestListener;
 import io.github.fajzu.shared.updater.UpdaterService;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 @Plugin(
@@ -35,14 +36,14 @@ public class BridgePlugin {
     private final DatabaseConfiguration databaseConfiguration;
 
     @Inject
-    public BridgePlugin(final ProxyServer server,
-                        final Logger logger,
-                        final Injector injector,
-                        final NetworkService networkService,
-                        final SectorService sectorService,
-                        final ConfigurationService configurationService,
-                        final ProxyConfiguration proxyConfiguration,
-                        final DatabaseConfiguration databaseConfiguration) {
+    public BridgePlugin(final @NotNull ProxyServer server,
+                        final @NotNull Logger logger,
+                        final @NotNull Injector injector,
+                        final @NotNull NetworkService networkService,
+                        final @NotNull SectorService sectorService,
+                        final @NotNull ConfigurationService configurationService,
+                        final @NotNull ProxyConfiguration proxyConfiguration,
+                        final @NotNull DatabaseConfiguration databaseConfiguration) {
         this.server = server;
         this.logger = logger;
         this.networkService = networkService;
@@ -68,21 +69,14 @@ public class BridgePlugin {
 
         this.logger.info("Loaded ProxyConfiguration: sectors count " + this.proxyConfiguration.sectors().size());
 
-        this.logger.info("SectorService initialized with namespace 'bridge'");
-        this.logger.info("Initialized with Redis");
-
-        this.networkService.subscribe("bridge", this.injector.getInstance(PacketSectorConfigurationRequestListener.class));
-        this.networkService.subscribe("bridge", this.injector.getInstance(PacketPlayerConnectSectorListener.class));
-
-        this.server.getEventManager().register(this, this.injector.getInstance(PlayerServerConnectListener.class));
-        this.logger.info("Bridge listeners registered");
+        // todo: implement classScanner to register events and packetHandlers
 
         this.checkForUpdates(BridgePlugin.class.getAnnotation(Plugin.class).version());
 
         this.logger.info("Bridge initialization complete!");
     }
 
-    private void checkForUpdates(final String currentVersion) {
+    private void checkForUpdates(final @NotNull String currentVersion) {
         final UpdaterService updaterService = new UpdaterService(currentVersion, java.util.logging.Logger.getAnonymousLogger());
 
         updaterService.check(newestVersion -> this.logger.warn(

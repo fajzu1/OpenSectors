@@ -1,29 +1,43 @@
 package io.github.fajzu.sectors.bukkit.region;
 
 import com.google.inject.Inject;
+import io.github.fajzu.nms.api.NmsService;
 import io.github.fajzu.sectors.bukkit.helper.ChatHelper;
 import io.github.fajzu.shared.Schedule;
+import io.github.fajzu.shared.configuration.ConfigurationService;
+import io.github.fajzu.shared.configuration.internal.MessagesConfiguration;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
-@Schedule()
+@Schedule
 public class SectorActionBarNotificationRunnable extends BukkitRunnable {
 
     private final Plugin plugin;
     private final BukkitSectorRegionService regionService;
+    private final ConfigurationService configurationService;
+    private final NmsService nmsService;
 
     @Inject
     public SectorActionBarNotificationRunnable(final @NotNull Plugin plugin,
-                                               final @NotNull BukkitSectorRegionService regionService) {
+                                               final @NotNull BukkitSectorRegionService regionService,
+                                               final @NotNull ConfigurationService configurationService,
+                                               final @NotNull NmsService nmsService) {
         this.plugin = plugin;
         this.regionService = regionService;
+        this.configurationService = configurationService;
+        this.nmsService = nmsService;
     }
 
     @Override
     public void run() {
+        final MessagesConfiguration messagesConfiguration = this.configurationService.find(MessagesConfiguration.class);
+        if(messagesConfiguration == null) {
+            return;
+        }
+
         for (final Player player : this.plugin.getServer().getOnlinePlayers()) {
             final Location location = player.getLocation();
             final double distance = this.regionService.distance(location);
@@ -32,8 +46,7 @@ public class SectorActionBarNotificationRunnable extends BukkitRunnable {
                 continue;
             }
 
-            this.plugin.nmsService().actionBar().sendActionBar(player,
-                    ChatHelper.colored(this.plugin.messagesConfiguration().actionbarBorderMessage())
+            this.nmsService.actionBar().sendActionBar(player, messagesConfiguration.actionbarBorderMessage()
                             .replace("{DISTANCE}", String.format("%.2f", distance)));
         }
     }

@@ -12,31 +12,27 @@ import io.github.fajzu.shared.sector.SectorService;
 
 public class BridgeModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-    }
-
     @Provides
     @Singleton
-    public ConfigurationService provideConfigurationService() {
+    public ConfigurationService configurationService() {
         return new ConfigurationService("plugins/opensectors-bridge");
     }
 
     @Provides
     @Singleton
-    public ProxyConfiguration provideProxyConfiguration(final ConfigurationService configurationService) {
+    public ProxyConfiguration proxyConfiguration(final ConfigurationService configurationService) {
         return configurationService.loadConfiguration(ProxyConfiguration.class);
     }
 
     @Provides
     @Singleton
-    public DatabaseConfiguration provideDatabaseConfiguration(final ConfigurationService configurationService) {
+    public DatabaseConfiguration databaseConfiguration(final ConfigurationService configurationService) {
         return configurationService.loadConfiguration(DatabaseConfiguration.class);
     }
 
     @Provides
     @Singleton
-    public SectorService provideSectorService(final ProxyConfiguration proxyConfiguration) {
+    public SectorService sectorService(final ProxyConfiguration proxyConfiguration) {
         final SectorService sectorService = new SectorService("bridge");
 
         proxyConfiguration.sectors().forEach((id, sectorWrapper) -> {
@@ -55,7 +51,7 @@ public class BridgeModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public NetworkService provideNetworkService(final DatabaseConfiguration databaseConfiguration) {
+    public NetworkService networkService(final DatabaseConfiguration databaseConfiguration) {
         return new NetworkService(
                 databaseConfiguration.natsHost(),
                 "bridge"

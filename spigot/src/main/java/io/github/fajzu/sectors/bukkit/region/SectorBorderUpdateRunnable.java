@@ -1,6 +1,7 @@
 package io.github.fajzu.sectors.bukkit.region;
 
 import com.google.inject.Inject;
+import io.github.fajzu.nms.api.NmsService;
 import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import io.github.fajzu.shared.Schedule;
 import org.bukkit.Location;
@@ -14,12 +15,15 @@ public class SectorBorderUpdateRunnable extends BukkitRunnable {
 
     private final BukkitSectorRegionService regionService;
     private final Plugin plugin;
+    private final NmsService nmsService;
 
     @Inject
     public SectorBorderUpdateRunnable(final @NotNull BukkitSectorRegionService regionService,
-                                      final @NotNull Plugin plugin) {
+                                      final @NotNull Plugin plugin,
+                                      final @NotNull NmsService nmsService) {
         this.regionService = regionService;
         this.plugin = plugin;
+        this.nmsService = nmsService;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class SectorBorderUpdateRunnable extends BukkitRunnable {
             final double addX = xDiff > zDiff ? location.getX() - centerX : 0;
             final double addZ = zDiff > xDiff ? location.getZ() - centerZ : 0;
 
-            this.plugin.nmsService().border().sendWorldBorder(player, Math.min(xDiff, zDiff) + 0.4, centerX + 0.5 + addX, centerZ + 0.5 + addZ);
+            this.nmsService.border().sendWorldBorder(player, Math.min(xDiff, zDiff) + 0.4, centerX + 0.5 + addX, centerZ + 0.5 + addZ);
         }
     }
 }
