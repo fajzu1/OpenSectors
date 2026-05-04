@@ -16,11 +16,7 @@ import java.util.logging.Logger;
 
 public class VersionDataFetcher {
     public static String fetch(final @NotNull Logger logger,
-                               final String urlString) {
-        if (urlString == null) {
-            return "0.0";
-        }
-
+                               final @NotNull String urlString) {
         try {
             final URL url = new URL(urlString);
             final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -42,15 +38,13 @@ public class VersionDataFetcher {
                     return "0.0";
                 }
 
-                final JsonParser parser = new JsonParser();
-                final JsonElement element = parser.parse(line);
-
+                final JsonElement element = JsonParser.parseString(line);
                 if (!element.isJsonArray()) {
                     return "0.0";
                 }
 
                 final JsonArray array = element.getAsJsonArray();
-                if (array.size() == 0) {
+                if (array.isEmpty()) {
                     return "0.0";
                 }
 
@@ -59,12 +53,12 @@ public class VersionDataFetcher {
                     return "0.0";
                 }
 
-                final JsonElement nameElem = firstTag.getAsJsonObject().get("name");
-                if (nameElem == null) {
+                final JsonElement nameElement = firstTag.getAsJsonObject().get("name");
+                if (nameElement == null) {
                     return "0.0";
                 }
 
-                return nameElem.getAsString();
+                return nameElement.getAsString();
             }
         } catch (IOException exception) {
             logger.log(Level.SEVERE, "Fetching latest GitHub tag failed: " + exception.getMessage());

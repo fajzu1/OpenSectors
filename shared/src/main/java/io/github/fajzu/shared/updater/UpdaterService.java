@@ -19,8 +19,7 @@ public class UpdaterService {
     }
 
     public void check(final @NotNull Consumer<String> consumer) {
-        int result = this.currentVersion.compareTo(this.newestVersion);
-
+        final int result = this.currentVersion.compareTo(this.newestVersion);
         if (result >= 0) {
             return;
         }
