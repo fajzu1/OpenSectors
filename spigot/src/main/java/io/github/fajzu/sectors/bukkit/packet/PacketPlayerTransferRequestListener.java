@@ -1,8 +1,7 @@
 package io.github.fajzu.sectors.bukkit.packet;
 
-import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import io.github.fajzu.sectors.bukkit.profile.Profile;
-import io.github.fajzu.sectors.bukkit.profile.ProfileService;
+import io.github.fajzu.sectors.bukkit.profile.ProfileCache;
 import io.github.fajzu.shared.network.NetworkService;
 import io.github.fajzu.shared.network.packet.PacketHandler;
 import io.github.fajzu.shared.network.packet.PacketTopic;
@@ -16,12 +15,12 @@ import org.jetbrains.annotations.NotNull;
 @PacketTopic(value = "transfer-request")
 public class PacketPlayerTransferRequestListener {
 
-    private final ProfileService profileService;
+    private final ProfileCache profileService;
     private final NetworkService networkService;
     private final SectorService sectorService;
 
     @Inject
-    public PacketPlayerTransferRequestListener(final @NotNull ProfileService profileService,
+    public PacketPlayerTransferRequestListener(final @NotNull ProfileCache profileService,
                                                final @NotNull NetworkService networkService,
                                                final @NotNull SectorService sectorService) {
         this.profileService = profileService;

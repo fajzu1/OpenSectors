@@ -7,7 +7,7 @@ import io.github.fajzu.shared.sector.Sector;
 import io.github.fajzu.shared.sector.SectorService;
 import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import io.github.fajzu.sectors.bukkit.profile.Profile;
-import io.github.fajzu.sectors.bukkit.profile.ProfileService;
+import io.github.fajzu.sectors.bukkit.profile.ProfileCache;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class BukkitSectorIntegration {
         return this.instance.sectorService();
     }
 
-    public ProfileService profileService() {
+    public ProfileCache profileService() {
         return this.instance.profileService();
     }
 

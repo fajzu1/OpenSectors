@@ -7,7 +7,7 @@ import org.bukkit.World;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-public class BukkitSectorRegion {
+public final class BukkitSectorRegion {
 
     private final Vector minimumPoint, maximumPoint;
     private final Location centerLocation;

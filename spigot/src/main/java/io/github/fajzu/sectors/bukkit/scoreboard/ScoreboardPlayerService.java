@@ -13,7 +13,7 @@ public final class ScoreboardPlayerService {
     private final Map<UUID, ScoreboardPlayer> scoreboardPlayers = new ConcurrentHashMap<>();
     private final ScoreboardProfileFacade profile;
 
-    public ScoreboardPlayerService(final ScoreboardProfileFacade profile) {
+    public ScoreboardPlayerService(final @NotNull ScoreboardProfileFacade profile) {
         this.profile = profile;
     }
 

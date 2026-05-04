@@ -1,21 +1,30 @@
 package io.github.fajzu.sectors.bukkit.region;
 
+import com.google.inject.Inject;
 import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
+import io.github.fajzu.shared.Schedule;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
+@Schedule(period = 50L)
 public class SectorBorderUpdateRunnable extends BukkitRunnable {
 
-    private final BukkitSectorPluginController plugin;
+    private final BukkitSectorRegionService regionService;
+    private final Plugin plugin;
 
-    public SectorBorderUpdateRunnable(final BukkitSectorPluginController plugin) {
+    @Inject
+    public SectorBorderUpdateRunnable(final @NotNull BukkitSectorRegionService regionService,
+                                      final @NotNull Plugin plugin) {
+        this.regionService = regionService;
         this.plugin = plugin;
     }
 
     @Override
     public void run() {
-        final BukkitSectorRegion sector = this.plugin.bukkitSectorRegionService().currentSectorRegion();
+        final BukkitSectorRegion sector = this.regionService.currentSectorRegion();
 
         final double minX = sector.minimumPoint().getX();
         final double minZ = sector.minimumPoint().getZ();

@@ -3,6 +3,8 @@ package io.github.fajzu.sectors.bukkit.packet;
 import com.google.inject.Inject;
 import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import io.github.fajzu.sectors.bukkit.region.BukkitSectorRegion;
+import io.github.fajzu.sectors.bukkit.region.BukkitSectorRegionCache;
+import io.github.fajzu.sectors.bukkit.region.BukkitSectorRegionFactory;
 import io.github.fajzu.sectors.bukkit.region.BukkitSectorRegionService;
 import io.github.fajzu.shared.network.packet.PacketHandler;
 import io.github.fajzu.shared.network.packet.PacketTopic;
@@ -19,15 +21,15 @@ public class PacketSectorConfigurationResponseListener {
 
     private final Plugin plugin;
     private final SectorService sectorService;
-    private final BukkitSectorRegionService regionService;
+    private final BukkitSectorRegionCache regionCache;
 
     @Inject
     public PacketSectorConfigurationResponseListener(final @NotNull Plugin plugin,
                                                      final @NotNull SectorService sectorService,
-                                                     final @NotNull BukkitSectorRegionService regionService) {
+                                                     final @NotNull BukkitSectorRegionCache regionCache) {
         this.plugin = plugin;
         this.sectorService = sectorService;
-        this.regionService = regionService;
+        this.regionCache = regionCache;
     }
 
     @PacketHandler
@@ -39,7 +41,7 @@ public class PacketSectorConfigurationResponseListener {
 
         for (final Sector sector : packet.sectors()) {
             this.sectorService.create(sector.id(), sector);
-            this.regionService.create(sector.id(), new BukkitSectorRegion(sector.region()));
+            this.regionCache.create(sector.id(), BukkitSectorRegionFactory.create(sector.region()));
         }
     }
 }

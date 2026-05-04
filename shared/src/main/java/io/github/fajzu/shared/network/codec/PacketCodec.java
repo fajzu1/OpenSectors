@@ -42,7 +42,8 @@ public final class PacketCodec {
     }
 
     @NotNull
-    public <T> T decode(final byte @NotNull [] data, @NotNull final Class<T> type) {
+    public <T> T decode(final byte @NotNull [] data,
+                        @NotNull final Class<T> type) {
         try {
             return this.objectMapper.readValue(data, type);
         } catch (final IOException exception) {

@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
-public class ProfileService {
+public final class ProfileCache {
 
     private final Map<UUID, Profile> profiles = new ConcurrentHashMap<>();
 

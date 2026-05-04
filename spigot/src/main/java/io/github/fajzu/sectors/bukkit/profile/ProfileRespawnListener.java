@@ -8,7 +8,6 @@ import io.github.fajzu.shared.sector.Sector;
 import io.github.fajzu.shared.sector.SectorInitialize;
 import io.github.fajzu.shared.sector.SectorService;
 import io.github.fajzu.shared.sector.SectorType;
-import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import io.github.fajzu.sectors.bukkit.helper.ChatHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,14 +21,14 @@ import org.jetbrains.annotations.NotNull;
 public class ProfileRespawnListener implements Listener {
 
     private final SectorService sectorService;
-    private final ProfileService profileService;
+    private final ProfileCache profileService;
     private final BukkitSectorRegionService regionService;
     private final ConfigurationService configurationService;
     private final PlayerTransferService transferService;
 
     @Inject
     public ProfileRespawnListener(final @NotNull SectorService sectorService,
-                                  final @NotNull ProfileService profileService,
+                                  final @NotNull ProfileCache profileService,
                                   final @NotNull BukkitSectorRegionService regionService,
                                   final @NotNull ConfigurationService configurationService,
                                   final @NotNull PlayerTransferService transferService) {

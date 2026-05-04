@@ -3,7 +3,7 @@ package io.github.fajzu.sectors.bukkit.command;
 import io.github.fajzu.shared.configuration.internal.MessagesConfiguration;
 import io.github.fajzu.shared.sector.SectorService;
 import io.github.fajzu.sectors.bukkit.inventory.internal.ChannelInventory;
-import io.github.fajzu.sectors.bukkit.profile.ProfileService;
+import io.github.fajzu.sectors.bukkit.profile.ProfileCache;
 import io.github.fajzu.sectors.bukkit.transfer.PlayerTransferService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,13 +14,13 @@ import com.google.inject.Inject;
 
 public class ChannelCommand implements CommandExecutor {
 
-    private final ProfileService profileService;
+    private final ProfileCache profileService;
     private final SectorService sectorService;
     private final PlayerTransferService transferService;
     private final MessagesConfiguration messagesConfiguration;
 
     @Inject
-    public ChannelCommand(final ProfileService profileService,
+    public ChannelCommand(final ProfileCache profileService,
                           final SectorService sectorService,
                           final PlayerTransferService transferService,
                           final MessagesConfiguration messagesConfiguration) {

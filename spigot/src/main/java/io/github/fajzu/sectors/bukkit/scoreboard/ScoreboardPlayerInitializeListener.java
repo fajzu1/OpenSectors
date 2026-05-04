@@ -24,7 +24,12 @@ public class ScoreboardPlayerInitializeListener implements Listener {
     void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        this.scoreboardPlayerService.create(player.getUniqueId(), new ScoreboardPlayer(player, this.scoreboardPlayerService.profile()));
+        this.scoreboardPlayerService.create(
+            player.getUniqueId(),
+            ScoreboardPlayerFactory.create(
+                player,
+                this.scoreboardPlayerService.profile())
+        );
     }
 
     @EventHandler

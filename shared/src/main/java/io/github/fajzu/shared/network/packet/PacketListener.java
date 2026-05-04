@@ -29,9 +29,9 @@ public final class PacketListener implements MessageHandler {
     }
 
     @Override
-    public void onMessage(@NotNull final Message msg) {
+    public void onMessage(@NotNull final Message message) {
         try {
-            final Packet packet = this.packetCodec.decode(msg.getData());
+            final Packet packet = this.packetCodec.decode(message.getData());
             final Method method = this.methodsByName.get(packet.getClass().getName());
 
             if (method == null) {
@@ -40,18 +40,18 @@ public final class PacketListener implements MessageHandler {
 
             final Object response = method.invoke(this.messageHandler, packet);
 
-            if (response instanceof Packet responsePacket && msg.getReplyTo() != null && !msg.getReplyTo().isBlank()) {
-                this.connection.publish(msg.getReplyTo(), this.packetCodec.encode(responsePacket));
+            if (response instanceof Packet responsePacket && message.getReplyTo() != null && !message.getReplyTo().isBlank()) {
+                this.connection.publish(message.getReplyTo(), this.packetCodec.encode(responsePacket));
             }
         } catch (InvocationTargetException exception) {
             final Throwable cause = exception.getCause() == null ? exception : exception.getCause();
             throw new PacketExecuteException(
-                "Failed to execute packet handler for " + msg.getSubject() + ": " + cause.getClass().getSimpleName() + " - " + String.valueOf(cause.getMessage()),
+                "Failed to execute packet handler for " + message.getSubject() + ": " + cause.getClass().getSimpleName() + " - " + cause.getMessage(),
                 cause
             );
         } catch (IllegalAccessException exception) {
             throw new PacketExecuteException(
-                "Failed to execute packet handler for " + msg.getSubject() + ": " + exception.getClass().getSimpleName() + " - " + String.valueOf(exception.getMessage()),
+                "Failed to execute packet handler for " + message.getSubject() + ": " + exception.getClass().getSimpleName() + " - " + exception.getMessage(),
                 exception
             );
         }

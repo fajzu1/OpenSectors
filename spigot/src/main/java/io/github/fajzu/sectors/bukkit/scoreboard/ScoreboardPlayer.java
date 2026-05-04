@@ -8,6 +8,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,8 +21,8 @@ public class ScoreboardPlayer {
     private final Scoreboard scoreboard;
     private final ScoreboardProfileFacade profile;
 
-    public ScoreboardPlayer(final Player player,
-                            final ScoreboardProfileFacade profile) {
+    public ScoreboardPlayer(final @NotNull Player player,
+                            final @NotNull ScoreboardProfileFacade profile) {
         this.player = player;
         this.profile = profile;
 

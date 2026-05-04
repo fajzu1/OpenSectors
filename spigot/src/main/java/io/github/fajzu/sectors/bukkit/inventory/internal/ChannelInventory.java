@@ -8,7 +8,7 @@ import io.github.fajzu.shared.sector.SectorType;
 import io.github.fajzu.sectors.bukkit.helper.ChatHelper;
 import io.github.fajzu.sectors.bukkit.inventory.builder.ItemBuilder;
 import io.github.fajzu.sectors.bukkit.profile.Profile;
-import io.github.fajzu.sectors.bukkit.profile.ProfileService;
+import io.github.fajzu.sectors.bukkit.profile.ProfileCache;
 import io.github.fajzu.sectors.bukkit.transfer.PlayerTransferService;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +25,7 @@ public class ChannelInventory {
     @Inject
     public ChannelInventory(final Player player,
                             final SectorService sectorService,
-                            final ProfileService profileService,
+                            final ProfileCache profileService,
                             final MessagesConfiguration messagesConfiguration,
                             final PlayerTransferService playerTransferService) {
         this.player = player;

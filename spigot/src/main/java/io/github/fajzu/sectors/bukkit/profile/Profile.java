@@ -18,52 +18,11 @@ public class Profile {
         this.uuid = uuid;
     }
 
-    /*public void loadData(final Player player,
-                         final Plugin plugin) {
-        if (this.serializedData == null || this.serializedLocation == null || this.gameMode == null) {
-            player.kick(ChatHelper.colored(plugin.messagesConfiguration().playerDataNotFoundMessage()));
-            return;
-        }
-
-        final PlayerLoadDataEvent event = new PlayerLoadDataEvent(player, this);
-        plugin.getServer().getPluginManager().callEvent(event);
-
-        if (event.isCancelled()) {
-            return;
-        }
-
-        final Location location = (Location) SerializeHelper.deserialize(this.serializedLocation);
-
-        player.teleport(location);
-        player.getInventory().setHeldItemSlot(this.heldSlot);
-        player.setGameMode(GameMode.valueOf(this.gameMode));
-
-        final Object nbtCompound = plugin.nmsService().nbtConverter().convertStringToNBTCompound(this.serializedData);
-
-        plugin.nmsService().data().loadData(player, nbtCompound);
-    }
-
-    public void saveData(final Player player,
-                         final BukkitSectorPluginController plugin) {
-        final PlayerSaveDataEvent event = new PlayerSaveDataEvent(player, this);
-        plugin.getServer().getPluginManager().callEvent(event);
-
-        if (event.isCancelled()) {
-            return;
-        }
-
-        this.serializedLocation = SerializeHelper.serialize(player.getLocation());
-        this.serializedData = plugin.nmsService().data().saveData(player);
-
-        this.gameMode = player.getGameMode().name();
-        this.heldSlot = player.getInventory().getHeldItemSlot();
-    }*/
-
     public boolean isRedirecting() {
         return this.redirectTime + 5000L > System.currentTimeMillis();
     }
 
-    public void setRedirecting(final boolean redirecting) {
+    public void redirecting(final boolean redirecting) {
         this.redirectTime = redirecting ? System.currentTimeMillis() : 0L;
     }
 
@@ -71,7 +30,7 @@ public class Profile {
         return this.transferCooldown + 5000L > System.currentTimeMillis();
     }
 
-    public void setTransferCooldown(final boolean transfer) {
+    public void transferCooldown(final boolean transfer) {
         this.transferCooldown = transfer ? System.currentTimeMillis() : 0L;
     }
 
@@ -81,5 +40,59 @@ public class Profile {
 
     public UUID uuid() {
         return this.uuid;
+    }
+
+    public String serializedData() {
+        return this.serializedData;
+    }
+
+    public Profile serializedData(final String serializedData) {
+        this.serializedData = serializedData;
+        return this;
+    }
+
+    public String gameMode() {
+        return this.gameMode;
+    }
+
+    public Profile gameMode(final String gameMode) {
+        this.gameMode = gameMode;
+        return this;
+    }
+
+    public byte[] serializedLocation() {
+        return this.serializedLocation;
+    }
+
+    public Profile serializedLocation(final byte[] serializedLocation) {
+        this.serializedLocation = serializedLocation;
+        return this;
+    }
+
+    public int heldSlot() {
+        return this.heldSlot;
+    }
+
+    public Profile heldSlot(final int heldSlot) {
+        this.heldSlot = heldSlot;
+        return this;
+    }
+
+    public long redirectTime() {
+        return this.redirectTime;
+    }
+
+    public Profile redirectTime(final long redirectTime) {
+        this.redirectTime = redirectTime;
+        return this;
+    }
+
+    public long transferCooldown() {
+        return this.transferCooldown;
+    }
+
+    public Profile transferCooldown(final long transferCooldown) {
+        this.transferCooldown = transferCooldown;
+        return this;
     }
 }

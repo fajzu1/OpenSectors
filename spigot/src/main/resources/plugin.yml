@@ -1,6 +1,7 @@
 name: opensectors-spigot
 author: fajzu
 version: '4.0'
+api-version: 1.17
 main: io.github.fajzu.sectors.bukkit.BukkitSectorPluginBoostrap
 
 commands:

@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
 import io.github.fajzu.shared.Schedule;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 @Schedule(period = 20)
 public class ScoreboardUpdateRunnable implements Runnable {
@@ -11,7 +12,7 @@ public class ScoreboardUpdateRunnable implements Runnable {
     private final ScoreboardPlayerService scoreboardPlayerService;
 
     @Inject
-    public ScoreboardUpdateRunnable(final ScoreboardPlayerService scoreboardPlayerService) {
+    public ScoreboardUpdateRunnable(final @NotNull ScoreboardPlayerService scoreboardPlayerService) {
         this.scoreboardPlayerService = scoreboardPlayerService;
     }
 

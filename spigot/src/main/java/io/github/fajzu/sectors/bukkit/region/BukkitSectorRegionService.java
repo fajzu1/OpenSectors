@@ -1,8 +1,10 @@
 package io.github.fajzu.sectors.bukkit.region;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import io.github.fajzu.shared.sector.Sector;
 import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
+import io.github.fajzu.shared.sector.SectorService;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -13,32 +15,26 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class BukkitSectorRegionService {
+@Singleton
+public final class BukkitSectorRegionService {
 
-    private final Map<String, BukkitSectorRegion> sectorRegions = new ConcurrentHashMap<>();
-    private final BukkitSectorPluginController plugin;
+    private final SectorService sectorService;
+    private final BukkitSectorRegionCache regionCache;
 
     @Inject
-    public BukkitSectorRegionService(final BukkitSectorPluginController plugin) {
-        this.plugin = plugin;
-    }
-
-    public void create(final String name,
-                       final BukkitSectorRegion bukkitSectorRegion) {
-        this.sectorRegions.put(name, bukkitSectorRegion);
-    }
-
-    public BukkitSectorRegion find(final String name) {
-        return this.sectorRegions.get(name);
+    public BukkitSectorRegionService(final @NotNull SectorService sectorService,
+                                     final @NotNull BukkitSectorRegionCache regionCache) {
+        this.sectorService = sectorService;
+        this.regionCache = regionCache;
     }
 
     public Sector find(final @NotNull Location location) {
-        return this.plugin.sectorService().sectors().values().stream()
+        return this.sectorService.sectors().values().stream()
                 .filter(sector -> {
-                    final BukkitSectorRegion region = this.sectorRegions.get(sector.id());
+                    final BukkitSectorRegion region = this.regionCache.regions().get(sector.id());
                     return region != null && region.isInside(location);
                 })
-                .filter(sector -> !sector.equals(this.plugin.sectorService().currentSector()))
+                .filter(sector -> !sector.equals(this.sectorService.currentSector()))
                 .findFirst()
                 .orElse(null);
     }
@@ -50,6 +46,40 @@ public class BukkitSectorRegionService {
         final World world = Bukkit.getWorld("world");
 
         return new Location(world, x, world.getHighestBlockYAt((int) x, (int) z), z);
+    }
+
+    public boolean isOutsideBorder(final @NotNull Location location) {
+        final BukkitSectorRegion region = this.currentSectorRegion();
+        if (region == null) {
+            return false;
+        }
+
+        final double OFFSET = 0.5;
+
+        final double x = location.getX();
+        final double z = location.getZ();
+
+        return x < (region.minimumPoint().getX() + OFFSET)
+            || x > (region.maximumPoint().getX() - OFFSET)
+            || z < (region.minimumPoint().getZ() + OFFSET)
+            || z > (region.maximumPoint().getZ() - OFFSET);
+    }
+
+    public boolean isNearBorder(
+        final @NotNull Location location,
+        final double radius) {
+        final BukkitSectorRegion region = this.currentSectorRegion();
+        if (region == null) {
+            return false;
+        }
+
+        final double x = location.getX();
+        final double z = location.getZ();
+
+        return x - region.minimumPoint().getX() <= radius ||
+            region.maximumPoint().getX() - x <= radius ||
+            z - region.minimumPoint().getZ() <= radius ||
+            region.maximumPoint().getZ() - z <= radius;
     }
 
     public void knock(final @NotNull Player player) {
@@ -82,11 +112,7 @@ public class BukkitSectorRegionService {
         );
     }
 
-    public Map<String, BukkitSectorRegion> regions() {
-        return this.sectorRegions;
-    }
-
     public BukkitSectorRegion currentSectorRegion() {
-        return this.sectorRegions.get(this.plugin.sectorService().currentSectorId());
+        return this.regionCache.regions().get(this.sectorService.currentSectorId());
     }
 }

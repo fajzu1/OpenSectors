@@ -1,6 +1,7 @@
 package io.github.fajzu.shared.network.packet;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
@@ -16,7 +17,7 @@ public class Packet implements Serializable {
         return this.sender;
     }
 
-    public void sender(final String sender) {
+    public void sender(final @NotNull String sender) {
         this.sender = sender;
     }
 }

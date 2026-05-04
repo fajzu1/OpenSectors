@@ -7,6 +7,7 @@ import io.github.fajzu.shared.configuration.internal.MessagesConfiguration;
 import io.github.fajzu.shared.sector.SectorInitialize;
 import io.github.fajzu.shared.sector.SectorService;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,26 +16,27 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import com.google.inject.Inject;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.TimeUnit;
 
 @SectorInitialize
 public class ProfileInitializeListener implements Listener {
 
-    private final BukkitSectorPluginController plugin;
-    private final ProfileService profileService;
+    private final ProfileCache profileService;
     private final MessagesConfiguration messagesConfiguration;
     private final SectorService sectorService;
+    private final ProfileRepository profileRepository;
 
     @Inject
-    public ProfileInitializeListener(final BukkitSectorPluginController plugin,
-                                     final ProfileService profileService,
-                                     final MessagesConfiguration messagesConfiguration,
-                                     final SectorService sectorService) {
-        this.plugin = plugin;
+    public ProfileInitializeListener(final @NotNull ProfileCache profileService,
+                                     final @NotNull MessagesConfiguration messagesConfiguration,
+                                     final @NotNull SectorService sectorService,
+                                     final @NotNull ProfileRepository profileRepository) {
         this.profileService = profileService;
         this.messagesConfiguration = messagesConfiguration;
         this.sectorService = sectorService;
+        this.profileRepository = profileRepository;
     }
 
     @EventHandler
@@ -59,7 +61,6 @@ public class ProfileInitializeListener implements Listener {
     void onPlayerJoin(final PlayerJoinEvent event) {
         event.joinMessage(Component.empty());
 
-        final Stopwatch stopwatch = Stopwatch.createStarted();
         final Player player = event.getPlayer();
         final Profile profile = this.profileService.find(player.getUniqueId());
 
@@ -69,15 +70,18 @@ public class ProfileInitializeListener implements Listener {
         }
 
         if (profile.isRedirecting()) {
-            profile.loadData(player, this.plugin);
+            this.profileRepository.loadData(player, profile);
 
-            profile.setRedirecting(false);
-            profile.setTransferCooldown(true);
+            profile.redirecting(false);
+            profile.transferCooldown(true);
 
-            player.sendMessage(ChatHelper.colored(this.messagesConfiguration.playerDataLoadedMessage()).replace("{TIME}", String.valueOf(stopwatch.elapsed(TimeUnit.MILLISECONDS))));
+            player.sendMessage(ChatHelper.colored(this.messagesConfiguration.playerDataLoadedMessage()));
         }
 
-        player.sendTitle(ChatHelper.colored(this.messagesConfiguration.connectedInfoTitle()), ChatHelper.colored(this.messagesConfiguration.connectedInfoSubTitle()).replace("{SECTOR}", this.sectorService.currentSectorId()));
+        player.showTitle(Title.title(
+            ChatHelper.colored(this.messagesConfiguration.connectedInfoTitle()),
+            ChatHelper.colored(this.messagesConfiguration.connectedInfoSubTitle())
+        ));
     }
 
     @EventHandler

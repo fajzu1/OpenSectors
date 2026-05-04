@@ -7,7 +7,7 @@ import com.velocitypowered.api.proxy.Player;
 import io.github.fajzu.sectors.bridge.BridgePlugin;
 import net.kyori.adventure.text.Component;
 
-public class PlayerServerConnectListener {
+public final class PlayerServerConnectListener {
 
     private final BridgePlugin plugin;
 

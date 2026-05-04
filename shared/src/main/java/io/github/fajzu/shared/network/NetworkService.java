@@ -1,5 +1,6 @@
 package io.github.fajzu.shared.network;
 
+import com.google.inject.Singleton;
 import io.github.fajzu.shared.network.codec.PacketCodec;
 import io.github.fajzu.shared.network.packet.Packet;
 import io.github.fajzu.shared.network.packet.PacketHandler;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Singleton
 public final class NetworkService {
 
     private final PacketCodec packetCodec;
@@ -23,7 +25,7 @@ public final class NetworkService {
     private final Connection connection;
 
     public NetworkService(@NotNull final String url,
-                            @NotNull final String packetSender) {
+                          @NotNull final String packetSender) {
         this.packetCodec = new PacketCodec();
         this.packetSender = packetSender;
 
@@ -44,6 +46,7 @@ public final class NetworkService {
     public CompletableFuture<Void> publish(@NotNull final String topic,
                                            @NotNull final Packet packet) {
         packet.sender(this.packetSender);
+
         try {
             final byte[] data = this.packetCodec.encode(packet);
             this.connection.publish(topic, data);

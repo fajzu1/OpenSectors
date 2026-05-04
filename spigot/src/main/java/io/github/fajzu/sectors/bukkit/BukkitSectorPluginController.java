@@ -13,14 +13,8 @@ import io.github.fajzu.shared.sector.*;
 import io.github.fajzu.shared.updater.UpdaterService;
 import io.github.fajzu.nms.api.NmsService;
 import io.github.fajzu.sectors.bukkit.helper.ChatHelper;
-import io.github.fajzu.sectors.bukkit.packet.PacketPlayerSendMessageListener;
-import io.github.fajzu.sectors.bukkit.packet.PacketPlayerTransferRequestListener;
-import io.github.fajzu.sectors.bukkit.packet.PacketSectorConfigurationResponseListener;
-import io.github.fajzu.sectors.bukkit.packet.PacketSectorInformationUpdateListener;
 import io.github.fajzu.sectors.bukkit.profile.Profile;
-import io.github.fajzu.sectors.bukkit.profile.ProfileService;
-import io.github.fajzu.sectors.bukkit.region.BukkitSectorRegionService;
-import io.github.fajzu.sectors.bukkit.scoreboard.ScoreboardPlayerService;
+import io.github.fajzu.sectors.bukkit.profile.ProfileCache;
 import io.github.fajzu.sectors.bukkit.transfer.PlayerTransferService;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -42,7 +36,7 @@ public final class BukkitSectorPluginController implements SectorInitializationM
     private final NetworkService networkService;
     private final PlayerTransferService transferService;
     private final SectorService sectorService;
-    private final ProfileService profileService;
+    private final ProfileCache profileService;
     private final MessagesConfiguration messagesConfiguration;
     private final NmsService nmsService;
     private final ClassScanner classScanner;
@@ -54,7 +48,7 @@ public final class BukkitSectorPluginController implements SectorInitializationM
                                         final @NotNull NetworkService networkService,
                                         final @NotNull PlayerTransferService transferService,
                                         final @NotNull SectorService sectorService,
-                                        final @NotNull ProfileService profileService,
+                                        final @NotNull ProfileCache profileService,
                                         final @NotNull MessagesConfiguration messagesConfiguration,
                                         final @NotNull NmsService nmsService,
                                         final @NotNull ClassScanner classScanner) {
