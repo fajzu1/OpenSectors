@@ -1,10 +1,12 @@
 name: opensectors-spigot
 author: fajzu
-version: '3.7'
-main: io.github.fajzu.sectors.bukkit.BukkitSectorPlugin
+version: '4.0'
+api-version: 1.17
+main: io.github.fajzu.sectors.bukkit.BukkitSectorPluginBoostrap
 
 commands:
   channel:
     aliases:
       - ch
-      -
+      - kanal
+      - kanaly

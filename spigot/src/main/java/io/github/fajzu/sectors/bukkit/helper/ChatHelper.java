@@ -1,6 +1,9 @@
 package io.github.fajzu.sectors.bukkit.helper;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.ChatColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Locale;
@@ -8,15 +11,19 @@ import java.util.stream.Collectors;
 
 public class ChatHelper {
 
-    public static String colored(String message) {
-        return ChatColor.translateAlternateColorCodes('&', message);
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+
+    public static Component colored(final @NotNull String message) {
+        return MINI_MESSAGE.deserialize(message);
     }
 
-    public static List<String> colored(List<String> messages) {
-        return messages.stream().map(ChatHelper::colored).collect(Collectors.toList());
+    public static List<Component> colored(final @NotNull List<String> messages) {
+        return messages.stream()
+                .map(ChatHelper::colored)
+                .collect(Collectors.toList());
     }
 
-    public static String formatTps(double tps) {
+    public static String formatTps(final double tps) {
         ChatColor color = ChatColor.RED;
 
         if (tps >= 19.0) {
@@ -27,5 +34,4 @@ public class ChatHelper {
 
         return color + String.format(Locale.US, "%.2f", Math.min(tps, 20.0));
     }
-
 }

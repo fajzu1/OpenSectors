@@ -1,30 +1,32 @@
 package io.github.fajzu.sectors.bukkit.scoreboard;
 
+import com.google.inject.Singleton;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ScoreboardPlayerService {
+@Singleton
+public final class ScoreboardPlayerService {
 
     private final Map<UUID, ScoreboardPlayer> scoreboardPlayers = new ConcurrentHashMap<>();
-
     private final ScoreboardProfileFacade profile;
 
-    public ScoreboardPlayerService(ScoreboardProfileFacade profile) {
+    public ScoreboardPlayerService(final @NotNull ScoreboardProfileFacade profile) {
         this.profile = profile;
     }
 
-    public void create(UUID uuid,
-                       ScoreboardPlayer scoreboardPlayer) {
+    public void create(final @NotNull UUID uuid,
+                       final @NotNull ScoreboardPlayer scoreboardPlayer) {
         this.scoreboardPlayers.put(uuid, scoreboardPlayer);
     }
 
-    public Optional<ScoreboardPlayer> find(UUID uuid) {
-        return Optional.ofNullable(this.scoreboardPlayers.get(uuid));
+    public ScoreboardPlayer find(final @NotNull UUID uuid) {
+        return this.scoreboardPlayers.get(uuid);
     }
 
-    public void remove(UUID uuid) {
+    public void remove(final @NotNull UUID uuid) {
         this.scoreboardPlayers.remove(uuid);
     }
 

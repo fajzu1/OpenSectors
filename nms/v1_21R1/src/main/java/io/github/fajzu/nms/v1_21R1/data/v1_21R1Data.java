@@ -13,7 +13,7 @@ public class v1_21R1Data implements Data<Player, Object> {
 
         CompoundTag tag = new CompoundTag();
         nmsPlayer.saveWithoutId(tag);
-        
+
         return tag.toString();
     }
 

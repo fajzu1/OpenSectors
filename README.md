@@ -36,14 +36,14 @@
 ## 🧰 Requirements
 
 - 🌐 1x [Velocity](https://velocitypowered.com/) proxy server
-- 🧱 Minimum 2x Spigot/Paper servers
-- ⚡ 1x Redis instance (data distribution & sync)
+- 🧱 Minimum 2x [Paper](https://papermc.io/downloads/paper) servers
+- ⚡ 1x [Nats](https://nats.io/) instance (data distribution & sync)
 
 ---
 
 ## ⚙️ Configuration
 
-Setting up sectors is simple and straightforward. Define the area for each sector and configure your Redis instance in
+Setting up sectors is simple and straightforward. Define the area for each sector and configure your Nats instance in
 the config files.
 
 ### 🗺️ Sectors Configuration
@@ -122,13 +122,7 @@ the config files.
 
 ---
 
-## 🐛 Found a Bug?
-
-Spotted an issue? Report it via Discord: **fizuxd** 💬
-
----
-
-## 📌 TODO
+## TODO
 
 - 📡 Add support for NATS
 - 📝 Change configuration system from JSON to YAML

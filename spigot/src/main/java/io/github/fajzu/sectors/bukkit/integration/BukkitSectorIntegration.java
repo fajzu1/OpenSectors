@@ -1,13 +1,13 @@
 package io.github.fajzu.sectors.bukkit.integration;
 
-import io.github.fajzu.common.network.NetworkService;
-import io.github.fajzu.sectors.bukkit.BukkitSectorPlugin;
-import io.github.fajzu.sectors.bukkit.user.User;
-import io.github.fajzu.sectors.bukkit.user.service.UserService;
-import io.github.fajzu.common.network.packet.Packet;
-import io.github.fajzu.common.network.packet.PacketListener;
-import io.github.fajzu.common.sector.Sector;
-import io.github.fajzu.common.sector.service.SectorService;
+import io.github.fajzu.shared.network.NetworkService;
+import io.github.fajzu.shared.network.packet.Packet;
+import io.github.fajzu.shared.network.internal.RedisPacketListener;
+import io.github.fajzu.shared.sector.Sector;
+import io.github.fajzu.shared.sector.SectorService;
+import io.github.fajzu.sectors.bukkit.BukkitSectorPluginController;
+import io.github.fajzu.sectors.bukkit.profile.Profile;
+import io.github.fajzu.sectors.bukkit.profile.ProfileCache;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -16,29 +16,29 @@ import java.util.UUID;
 
 public class BukkitSectorIntegration {
 
-    private final BukkitSectorPlugin instance;
+    private final BukkitSectorPluginController instance;
 
     private BukkitSectorIntegration() {
-        this.instance = BukkitSectorPlugin.getPlugin(BukkitSectorPlugin.class);
+        this.instance = BukkitSectorPluginController.getPlugin(BukkitSectorPluginController.class);
     }
 
     public static BukkitSectorIntegration create() {
         return new BukkitSectorIntegration();
     }
 
-    public User findUserByUUID(UUID uuid) {
-        return this.instance.userService().find(uuid);
+    public Profile findProfileByUUID(final UUID uuid) {
+        return this.instance.profileService().find(uuid);
     }
 
-    public User findUserByName(String name) {
-        return this.instance.userService().find(name);
+    public Profile findProfileByName(final String name) {
+        return this.instance.profileService().find(name);
     }
 
-    public Sector findSectorByName(String name) {
+    public Sector findSectorByName(final String name) {
         return this.instance.sectorService().find(name);
     }
 
-    public Sector findSectorByLocation(Location location) {
+    public Sector findSectorByLocation(final Location location) {
         return this.instance.bukkitSectorRegionService().find(location);
     }
 
@@ -50,17 +50,17 @@ public class BukkitSectorIntegration {
         return new ArrayList<>(this.instance.sectorService().sectors().values());
     }
 
-    public List<User> allUsers() {
-        return new ArrayList<>(this.instance.userService().users().values());
+    public List<Profile> allProfiles() {
+        return new ArrayList<>(this.instance.profileService().profiles().values());
     }
 
-    public void sendPacket(String channel,
-                           Packet packet) {
+    public void sendPacket(final String channel,
+                           final Packet packet) {
         this.instance.networkService().publish(channel, packet);
     }
 
-    public void subscribe(String channel,
-                          PacketListener<?> listener) {
+    public void subscribe(final String channel,
+                          final RedisPacketListener<?> listener) {
         this.instance.networkService().subscribe(channel, listener);
     }
 
@@ -68,16 +68,15 @@ public class BukkitSectorIntegration {
         return this.instance.sectorService();
     }
 
-    public UserService userService() {
-        return this.instance.userService();
+    public ProfileCache profileService() {
+        return this.instance.profileService();
     }
 
     public NetworkService messengerService() {
         return this.instance.networkService();
     }
 
-    public BukkitSectorPlugin instance() {
+    public BukkitSectorPluginController instance() {
         return this.instance;
     }
-
 }

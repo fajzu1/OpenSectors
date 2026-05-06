@@ -1,15 +1,15 @@
 package io.github.fajzu.sectors.bukkit.region;
 
-import io.github.fajzu.common.sector.region.SectorRegion;
+import io.github.fajzu.shared.sector.SectorRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
-public class BukkitSectorRegion {
+public final class BukkitSectorRegion {
 
     private final Vector minimumPoint, maximumPoint;
-
     private final Location centerLocation;
 
     public BukkitSectorRegion(final SectorRegion region) {
@@ -33,27 +33,8 @@ public class BukkitSectorRegion {
         return this.centerLocation;
     }
 
-    public void setBounds(int minX,
-                          int maxX,
-                          int minZ,
-                          int maxZ) {
-        this.minimumPoint.setX(minX);
-        this.minimumPoint.setZ(minZ);
-        this.maximumPoint.setX(maxX);
-        this.maximumPoint.setZ(maxZ);
-
-        int centerX = (minX + maxX) / 2;
-        int centerZ = (minZ + maxZ) / 2;
-        int centerY = 256;
-
-        this.centerLocation.setX(centerX);
-        this.centerLocation.setY(centerY);
-        this.centerLocation.setZ(centerZ);
-    }
-
-    public boolean isInside(Location location) {
-        Vector vector = location.toVector();
+    public boolean isInside(final @NotNull Location location) {
+        final Vector vector = location.toVector();
         return vector.isInAABB(this.minimumPoint, this.maximumPoint);
     }
-
 }

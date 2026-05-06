@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class v1_17R1Data implements Data<Player, Object> {
+
     @Override
     public String saveData(Player player) {
         ServerPlayer nmsPlayer = ((CraftPlayer) player).getHandle();

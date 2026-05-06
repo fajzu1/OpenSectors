@@ -1,52 +1,51 @@
 package io.github.fajzu.sectors.bridge.listener.redis;
 
-import io.github.fajzu.common.network.NetworkService;
-import io.github.fajzu.sectors.bridge.BridgeLogger;
-import io.github.fajzu.common.network.packet.impl.SectorConfigurationRequestPacket;
-import io.github.fajzu.common.network.packet.impl.SectorConfigurationResponsePacket;
-import io.github.fajzu.common.network.packet.PacketListener;
-import io.github.fajzu.common.sector.Sector;
-import io.github.fajzu.common.sector.service.SectorService;
+import io.github.fajzu.sectors.bridge.BridgePlugin;
+import io.github.fajzu.shared.network.packet.PacketHandler;
+import io.github.fajzu.shared.network.packet.internal.SectorConfigurationRequestPacket;
+import io.github.fajzu.shared.network.packet.internal.SectorConfigurationResponsePacket;
+import io.github.fajzu.shared.sector.Sector;
+import io.github.fajzu.shared.sector.SectorService;
+import org.slf4j.Logger;
 
-public class PacketSectorConfigurationRequestListener extends PacketListener<SectorConfigurationRequestPacket> {
+import com.google.inject.Inject;
+
+public class PacketSectorConfigurationRequestListener {
 
     private final SectorService sectorService;
+    private final BridgePlugin plugin;
+    private final Logger logger;
 
-    private final NetworkService networkService;
-
-    private final BridgeLogger logger;
-
-    public PacketSectorConfigurationRequestListener(SectorService sectorService,
-                                                    NetworkService networkService,
-                                                    BridgeLogger logger) {
-        super(SectorConfigurationRequestPacket.class);
-
+    @Inject
+    public PacketSectorConfigurationRequestListener(final SectorService sectorService,
+                                                    final BridgePlugin plugin,
+                                                    final Logger logger) {
         this.sectorService = sectorService;
-        this.networkService = networkService;
+        this.plugin = plugin;
         this.logger = logger;
     }
 
-    @Override
-    public void handle(SectorConfigurationRequestPacket packet) {
-        this.logger.log("Received SectorConfigurationRequestPacket from sender: {}", packet.sender());
+    @PacketHandler
+    public void handle(final SectorConfigurationRequestPacket packet) {
+        this.logger.info("Received SectorConfigurationRequestPacket from sender: {}", packet.sender());
 
         if (this.sectorService.find(packet.sender()) == null) {
-            this.networkService.publish(
+            this.plugin.networkService().publish(
                     packet.sender(),
                     new SectorConfigurationResponsePacket(null)
             );
 
-            this.logger.warning("No sector found for sender: {}", packet.sender());
+            this.logger.warn("No sector found for sender: {}", packet.sender());
             return;
         }
 
-        this.logger.log("Sector found for sender: {}. Sending sector configuration response.", packet.sender());
+        this.logger.info("Sector found for sender: {}. Sending sector configuration response.", packet.sender());
 
-        this.networkService.publish(
+        this.plugin.networkService().publish(
                 packet.sender(),
                 new SectorConfigurationResponsePacket(this.sectorService.sectors().values().toArray(new Sector[0]))
         );
 
-        this.logger.warning("SectorConfigurationResponsePacket sent to sender: {}", packet.sender());
+        this.logger.warn("SectorConfigurationResponsePacket sent to sender: {}", packet.sender());
     }
 }
