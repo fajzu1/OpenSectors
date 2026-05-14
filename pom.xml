@@ -22,7 +22,7 @@
         <lettuce.version>7.1.0.RELEASE</lettuce.version>
         <netty.version>4.2.7.Final</netty.version>
 
-        <msgpack.version>0.9.10</msgpack.version>
+        <msgpack.version>0.9.12</msgpack.version>
         <configurate.version>4.2.0</configurate.version>
         <gson.version>2.13.2</gson.version>
         <jackson.version>2.20.1</jackson.version>
