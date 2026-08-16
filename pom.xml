@@ -25,7 +25,7 @@
         <msgpack.version>0.9.10</msgpack.version>
         <configurate.version>4.2.0</configurate.version>
         <gson.version>2.13.2</gson.version>
-        <jackson.version>2.20.1</jackson.version>
+        <jackson.version>2.22.2</jackson.version>
 
         <jackson.databind.version>2.20.1</jackson.databind.version>
     </properties>
